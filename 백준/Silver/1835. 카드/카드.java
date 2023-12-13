@@ -4,8 +4,7 @@ class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
-        Deque<Integer> dq = new LinkedList<>();
-        Deque<Integer> makeDq = new LinkedList<>();
+        Deque<Integer> dq = new LinkedList<>();        
         dq.add(N);
         for (int i = N - 1; i > 0; i--) {
 
