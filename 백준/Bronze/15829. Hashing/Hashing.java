@@ -1,3 +1,4 @@
+import java.math.BigInteger;
 import java.util.*;
 
 class Main {
@@ -10,17 +11,17 @@ class Main {
             nums[i] = str.charAt(i) - 96;
         }
 
-        int sum = 0;
+        BigInteger sum = BigInteger.ZERO;
         for (int i = 0; i < nums.length; i++) {
-            int r = 1;
+            BigInteger r = BigInteger.ONE;
             for (int j = 1; j <= i; j++) {
-                r *= 31;
+                r = r.multiply(BigInteger.valueOf(31));
             }
 
-            sum += nums[i] * r;
+            sum = sum.add(BigInteger.valueOf(nums[i]).multiply(r));
         }
 
-        System.out.println(sum % 1234567891);
-
+        BigInteger modValue = BigInteger.valueOf(1234567891);
+        System.out.println(sum.mod(modValue));
     }
 }
