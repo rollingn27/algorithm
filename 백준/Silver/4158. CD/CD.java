@@ -1,11 +1,12 @@
 import java.io.*;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        Scanner sc = new Scanner(System.in);
 
         while (true) {
             String[] strs = br.readLine().split(" ");
@@ -26,19 +27,22 @@ public class Main {
                 num2[i] = Integer.parseInt(br.readLine());
             }
 
-            Set<Integer> set = new HashSet<>();
-            Set<Integer> intersection = new HashSet<>();
-
-            for (int num: num1) {
-                set.add(num);
-            }
-
-            for (int num: num2) {
-                if (set.contains(num)) {
-                    intersection.add(num);
+            int p1 = 0;
+            int p2 = 0;
+            int count = 0;            
+            while (p1 < n && p2 < m) {
+                if (num1[p1] == num2[p2]) {
+                    count++;
+                    p1++;
+                    p2++;
+                } else if (num1[p1] < num2[p2]) {
+                    p1++;
+                } else {
+                    p2++;
                 }
-            }
-            bw.write(intersection.size() + "\n");
+            }            
+
+            bw.write(Integer.toString(count) + "\n");
             bw.flush();
         }
 
