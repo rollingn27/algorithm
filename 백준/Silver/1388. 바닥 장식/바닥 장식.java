@@ -21,14 +21,14 @@ class Main {
             count = N * M;
             for (int i = 0; i < N; i++)
                 for (int j = 0; j < M; j++)
-                    bfs(coord, i, j);
+                    dfs(coord, i, j);
             System.out.println(count);
 
         }
 
     }
 
-    public static void bfs(char[][] coord, int y, int x) {
+    public static void dfs(char[][] coord, int y, int x) {
 
         if (x < 0 || y < 0 || coord[y][x] == '0') {
 
@@ -40,8 +40,7 @@ class Main {
 
             if (coord[y][1 + x] == '-') {
 
-                bfs(coord, y, x + 1);
-                bfs(coord, y, x - 1);
+                dfs(coord, y, x + 1);                
                 count--;
 
             }
@@ -52,8 +51,7 @@ class Main {
 
             if (coord[y + 1][x] == '|') {
 
-                bfs(coord, y + 1, x);
-                bfs(coord, y - 1, x);
+                dfs(coord, y + 1, x);                
                 count--;
             }
         }
