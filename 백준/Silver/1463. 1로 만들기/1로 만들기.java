@@ -1,14 +1,12 @@
 import java.io.*;
-import java.util.*;
 
 class Main {
 
     public static void main(String[] args) throws IOException {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out))) {
+             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out))) {
             int N = Integer.parseInt(br.readLine());
-            int[] dp = new int[1000001];
-            Arrays.fill(dp, 0);
+            int[] dp = new int[N + 1];
 
             for (int i = 2; i <= N; i++) {
                 dp[i] = dp[i - 1] + 1;
