@@ -15,14 +15,10 @@ public class Main {
                 int count = 0;
                 int num = i;
                 String str = String.valueOf(num);
-                while (num / 10 > 0) {
-                    num /= 10;
-                    count++;
-                }
-
+                
                 int sum = i;
 
-                for (int j = 0; j <= count; j++) {
+                for (int j = 0; j < str.length(); j++) {
                     sum += (str.charAt(j) - '0');
                 }
 
