@@ -40,7 +40,7 @@ public class Main {
             for (int i = 1; i < 10; i = i + 2) {
                 boolean flag = true;
                 int temp = Integer.parseInt(prime + i);
-                for (int j = 3; j < temp; j++) {
+                for (int j = 3; j * j <= temp; j++) {
                     if (temp % j == 0) {
                         flag = false;
                         break;
