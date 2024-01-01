@@ -1,23 +1,21 @@
 import java.io.*;
-import java.util.*;
 
 class Main {
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out))) {
             int N = Integer.parseInt(br.readLine());
-            int[] nums = new int[N];
-
+            int[] numCount = new int[10001];
             for (int i = 0; i < N; i++) {
-                nums[i] = Integer.parseInt(br.readLine());
+                numCount[Integer.parseInt(br.readLine())]++;
             }
-
-            Arrays.sort(nums);
-            for (int i = 0; i < N; i++) {
-                bw.write(Integer.toString(nums[i]) + "\n");
+            for (int i = 0; i < 10001; i++) {
+                if (numCount[i] == 0)
+                    continue;
+                for (int j = 0; j < numCount[i]; j++) {
+                    bw.write(String.valueOf(i) + "\n");
+                }
             }
-
         }
     }
-
 }
