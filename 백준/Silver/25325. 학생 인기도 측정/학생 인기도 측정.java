@@ -14,7 +14,7 @@ class Main {
             for (int i = 0; i < n; i++) {
                 String[] likes = br.readLine().split(" ");
                 for (String like: likes) {
-                    studentMap.put(like, studentMap.getOrDefault(like, 0) + 1);
+                    studentMap.put(like, studentMap.get(like) + 1);
                 }
             }
             PriorityQueue<Map.Entry<String, Integer>> pq = new PriorityQueue<>((a, b) -> {
