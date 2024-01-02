@@ -9,13 +9,14 @@ class Main {
             String[] NM = br.readLine().split(" ");
             int N = Integer.parseInt(NM[0]);
             int M = Integer.parseInt(NM[1]);
-            Map<Integer, List<Integer>> graph = new HashMap<>();
+            List<List<Integer>> graph = new ArrayList<>();
+            for (int i = 0; i < N; i++) {
+                graph.add(new ArrayList<>());
+            }
             for (int i = 0; i < M; i++) {
                 String[] ab = br.readLine().split(" ");
                 int a = Integer.parseInt(ab[0]);
                 int b = Integer.parseInt(ab[1]);
-                graph.putIfAbsent(a, new ArrayList<>());
-                graph.putIfAbsent(b, new ArrayList<>());
                 graph.get(a).add(b);
                 graph.get(b).add(a);
             }
@@ -33,13 +34,13 @@ class Main {
         }
     }
 
-    public static void dfs(Map<Integer, List<Integer>> graph, int a, int depth, boolean[] friend) {
+    public static void dfs(List<List<Integer>> graph, int a, int depth, boolean[] friend) {
         if (depth == 5) {
             arrive = true;
             return;
         }
         friend[a] = true;
-        if (graph.containsKey(a)) {
+        if (graph.get(a).size() > 0) {
             for (int i: graph.get(a)) {
                 if (!friend[i]) {
                     dfs(graph, i, depth + 1, friend);
