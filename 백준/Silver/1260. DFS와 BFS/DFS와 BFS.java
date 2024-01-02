@@ -1,85 +1,61 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 class Main {
+
     public static void main(String[] args) throws IOException {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out))) {
             String[] NMV = br.readLine().split(" ");
-            Map<Integer, PriorityQueue<Integer>> graph1 = new HashMap<>();
-            Map<Integer, PriorityQueue<Integer>> graph2 = new HashMap<>();
-            int n = Integer.parseInt(NMV[0]);
-            int m = Integer.parseInt(NMV[1]);
-            int v = Integer.parseInt(NMV[2]);
-            boolean[] visited = new boolean[n + 1];
-            if (n == 1) {
-                bw.write("1\n1");
-            } else {
-                for (int i = 0; i < m; i++) {
-                    String[] uv = br.readLine().split(" ");
-                    int s = Integer.parseInt(uv[0]);
-                    int e = Integer.parseInt(uv[1]);
-                    graph1.putIfAbsent(s, new PriorityQueue<>((a,b) -> b - a));
-                    graph1.get(s).add(e);
-                    graph1.putIfAbsent(e, new PriorityQueue<>((a,b) -> b - a));
-                    graph1.get(e).add(s);
-                    graph2.putIfAbsent(s, new PriorityQueue<>());
-                    graph2.get(s).add(e);
-                    graph2.putIfAbsent(e, new PriorityQueue<>());
-                    graph2.get(e).add(s);
-                }
-                Deque<Integer> stack = new ArrayDeque<>();
-                stack.push(v);
-                List<Integer> result = new LinkedList<>();
-                while (!stack.isEmpty()) {
-                    int node = stack.pop();
-                    if (visited[node])
-                        continue;
-                    result.add(node);
-                    visited[node] = true;
-                    if (result.size() == n)
-                        break;
-                    if (graph1.containsKey(node)) {
-                        while (!graph1.get(node).isEmpty()) {
-                            int temp = graph1.get(node).poll();
-                            if (!visited[temp]) {
-                                stack.push(temp);
-                            }
-                        }
-                    }
-                }
-                StringBuilder sb = new StringBuilder();
-                for (int s: result) {
-                    sb.append(s + " ");
-                }
-                sb.append("\n");
-                Arrays.fill(visited, false);
-                result.clear();
-                Queue<Integer> que = new LinkedList<>();
-                que.add(v);
-                while (!que.isEmpty()) {
-                    int node = que.poll();
+            int N = Integer.parseInt(NMV[0]);
+            int M = Integer.parseInt(NMV[1]);
+            int V = Integer.parseInt(NMV[2]);
+            List<List<Integer>> graph = new ArrayList<>();
+            for (int i = 0; i < N; i++) {
+                graph.add(new ArrayList<>());
+            }
+            for (int i = 0; i < M; i++) {
+                String[] ab = br.readLine().split(" ");
+                int a = Integer.parseInt(ab[0]);
+                int b = Integer.parseInt(ab[1]);
+                graph.get(a - 1).add(b);
+                graph.get(b - 1).add(a);
+            }
 
-                    if (visited[node])
-                        continue;
-                    result.add(node);
-                    visited[node] = true;
-                    if (result.size() == n)
-                        break;
-                    if (graph2.containsKey(node)) {
-                        while (!graph2.get(node).isEmpty()) {
-                            int temp = graph2.get(node).poll();
-                            if (!visited[temp]) {
-                                que.add(temp);
-                            }
-                        }
+            for (int i = 0; i < N; i++) {
+                Collections.sort(graph.get(i));
+            }
+            boolean[] visited = new boolean[N];
+            StringBuilder sb = new StringBuilder();
+            dfs(graph, V, visited, sb);
+            bw.write(sb.toString() + "\n");
+            Arrays.fill(visited, false);
+            sb = new StringBuilder();
+            Queue<Integer> que = new LinkedList<>();
+            que.add(V);
+            while (!que.isEmpty()) {
+                int temp = que.poll();
+                visited[temp - 1] = true;
+                sb.append(temp + " ");
+                for (int i: graph.get(temp - 1)) {
+                    if (!visited[i - 1]) {
+                        que.add(i);
+                        visited[i - 1] = true;
                     }
+
                 }
-                for (int s: result) {
-                    sb.append(s + " ");
-                }
-                sb.append("\n");
-                bw.write(sb.toString());
+            }
+            bw.write(sb.toString());
+
+        }
+    }
+
+    public static void dfs(List<List<Integer>> graph, int V, boolean[] visited, StringBuilder sb) {
+        sb.append(V + " ");
+        visited[V - 1] = true;
+        for (int i: graph.get(V - 1)) {
+            if (!visited[i - 1]) {
+                dfs(graph, i, visited, sb);
             }
         }
     }
