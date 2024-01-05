@@ -11,12 +11,10 @@ public class Main {
             long V = Long.parseLong(ABV[2]);
 
             long tempDays = V / (A - B);
-
-            if (tempDays * A - (tempDays - 1) * B >= V) {
-                while (tempDays * A - (tempDays - 1) * B >= V) {
-                    tempDays--;
-                }
-            }
+            
+            while (tempDays * A - (tempDays - 1) * B >= V) {
+                tempDays--;
+            }            
 
             tempDays += 1;
 
