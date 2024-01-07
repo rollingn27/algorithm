@@ -8,7 +8,8 @@ class Main {
             String[] AB = br.readLine().split(" ");
             long A = Long.parseLong(AB[0]);
             long B = Long.parseLong(AB[1]);
-            for (long i = 0; i < gcd(A, B); i++) {
+            long g = gcd(A, B);
+            for (long i = 0; i < g; i++) {
                 sb.append(1);
             }
             bw.write(sb.toString());
